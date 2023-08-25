@@ -1,27 +1,50 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
+import Insurance from '../shared/model/insurance';
 
+
+const URL_BASE = "http://localhost:8080/api/"
 @Injectable({
   providedIn: 'root'
 })
 
-const URL_BASE = "http://localhost:9090/api/"
-
 export class InsuranceService {
-  api = axios.create({ baseURL: URL_BASE + "insurance" })
-  insurances
+  api = axios.create({ baseURL: URL_BASE })
+  insurances:Insurance[] = []
+  totalElements:number = 0
   constructor() { }
-  async getAll() {
+  async getAll(page = '0',size ='5',sort={column:'',direction:''}):Promise<[Insurance[],number]> {
 
-  await this.api.get("",{})
+  await this.api.get("insurance?page="+page+"&size="+size+"&sort="+sort.column+","+sort.direction,{})
       .then(
         (response) => {
-          this.clients = response.data;
+          this.insurances = response.data.content;
+          this.totalElements = response.data.totalElements
       }
     )
 
+    return [this.insurances,this.totalElements];
+
   }
-  getClients() {
-    return this.clients;
+
+  async remove(row:Insurance){
+ let isDeleted = false
+    await this.api.delete("insurance/"+row.insuranceId.toString()).then(
+      (response) => {
+        isDeleted = response.data
+    }
+    )
+    return isDeleted;
   }
+
+  async save(row:Insurance){
+       let isSaved = false
+       await this.api.post("insurance/",row).then(
+         (response) => {
+           isSaved = true
+       }
+       )
+       return isSaved;
+     }
+  
 }
