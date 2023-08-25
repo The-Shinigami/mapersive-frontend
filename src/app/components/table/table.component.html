@@ -1,1 +1,124 @@
 <p>table works!</p>
+<div class="example-container mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" matSort  (matSortChange)="sortData($event)">
+      
+  
+      <!-- Policy ID Column -->
+      <!-- <ng-container matColumnDef="policyId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Policy ID </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.policyId }} </mat-cell>
+      </ng-container>
+   -->
+      <!-- Date of Purchase Column -->
+      <ng-container matColumnDef="dateOfPurchase">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Date of Purchase </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.dateOfPurchase }} </mat-cell>
+      </ng-container>
+  
+      <!-- Customer ID Column -->
+      <!-- <ng-container matColumnDef="customerId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Customer ID </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.customerId }} </mat-cell>
+      </ng-container> -->
+  
+      <!-- Fuel Column -->
+      <ng-container matColumnDef="fuel">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Fuel </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.fuel }} </mat-cell>
+      </ng-container>
+  
+      <!-- Vehicle Segment Column -->
+      <ng-container matColumnDef="vehicleSegment">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Vehicle Segment </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.vehicleSegment }} </mat-cell>
+      </ng-container>
+  
+      <!-- Premium Column -->
+      <ng-container matColumnDef="premium">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Premium </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.premium }} </mat-cell>
+      </ng-container>
+
+      <!-- Bodily Injury Liability Column -->
+    <ng-container matColumnDef="bodilyInjuryLiability">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Bodily Injury Liability </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.bodilyInjuryLiability }} </mat-cell>
+    </ng-container>
+
+    <!-- Personal Injury Protection Column -->
+    <ng-container matColumnDef="personalInjuryProtection">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Personal Injury Protection </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.personalInjuryProtection }} </mat-cell>
+    </ng-container>
+
+    <!-- Property Damage Liability Column -->
+    <ng-container matColumnDef="propertyDamageLiability">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Property Damage Liability </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.propertyDamageLiability }} </mat-cell>
+    </ng-container>
+
+    <!-- Collision Column -->
+    <ng-container matColumnDef="collision">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Collision </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.collision }} </mat-cell>
+    </ng-container>
+
+    <!-- Comprehensive Column -->
+    <ng-container matColumnDef="comprehensive">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Comprehensive </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.comprehensive }} </mat-cell>
+    </ng-container>
+
+    <!-- Customer Gender Column -->
+    <ng-container matColumnDef="customerGender">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Customer Gender </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.customerGender }} </mat-cell>
+    </ng-container>
+
+    <!-- Customer Income Group Column -->
+    <ng-container matColumnDef="customerIncomeGroup">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Customer Income Group </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.customerIncomeGroup }} </mat-cell>
+    </ng-container>
+
+    <!-- Customer Region Column -->
+    <ng-container matColumnDef="customerRegion">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Customer Region </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.customerRegion }} </mat-cell>
+    </ng-container>
+
+    <!-- Customer Marital Status Column -->
+    <ng-container matColumnDef="customerMaritalStatus">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Customer Marital Status </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{ row.customerMaritalStatus }} </mat-cell>
+    </ng-container>
+  
+  
+    <!-- Action Column -->
+    <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Edit </mat-header-cell>
+      <mat-cell *matCellDef="let row"> 
+        <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
+          color="primary" (click)="edit(row)">
+          <mat-icon>edit</mat-icon>
+        </button> </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Delete </mat-header-cell>
+      <mat-cell *matCellDef="let row"> 
+        <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" 
+          (click)="delete(row)" color="warn">
+          <mat-icon>delete</mat-icon>
+        </button> </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" [length]="totalElements" (page)="nextPage($event)"  [showFirstLastButtons]="true"></mat-paginator>
+  
+  
+</div>
+  
