@@ -1,0 +1,217 @@
+<form #regForm="ngForm" [formGroup]="insuranceForm" (ngSubmit)="onSubmit()" class="insurance-form  tw-bg-white tw-rounded-md">
+
+    <div class="form-row">
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Policy ID" formControlName="policyId">
+        <mat-error *ngIf="insuranceForm.get('policyId')?.hasError('required')">Policy ID is required</mat-error>
+      </mat-form-field>
+      
+      <mat-form-field class="form-field">
+        <input matInput [matDatepicker]="datePicker" placeholder="Date of Purchase" formControlName="dateOfPurchase" required>
+        <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+        <mat-datepicker #datePicker></mat-datepicker>
+        <mat-error *ngIf="insuranceForm.get('dateOfPurchase')?.hasError('required')">Date of Purchase is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Customer ID" formControlName="customerId" required>
+        <mat-error *ngIf="insuranceForm.get('customerId')?.hasError('required')">Customer ID is required</mat-error>
+      </mat-form-field>
+    </div>
+    
+    <div class="form-row">
+
+      <mat-form-field class="form-field">
+        <input
+          placeholder="Fuel"
+          aria-label="Fuel"
+          matInput
+          formControlName="fuel"
+          [matAutocomplete]="autoFuel">
+        <mat-autocomplete autoActiveFirstOption #autoFuel="matAutocomplete">
+          <mat-option *ngFor="let option of fuelOptions" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="insuranceForm.get('fuel')?.hasError('required')">Fuel is required</mat-error>
+
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <input
+          placeholder="Vehicle Segment"
+          aria-label="Vehicle Segment"
+          matInput
+          formControlName="vehicleSegment"
+          [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option *ngFor="let option of vehicleSegmentOptions" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="insuranceForm.get('vehicleSegment')?.hasError('required')">Vehicle Segment is required</mat-error>
+
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <input matInput placeholder="Premium" formControlName="premium">
+        <mat-error *ngIf="insuranceForm.get('premium')?.hasError('required')">Premium is required</mat-error>
+      </mat-form-field>
+
+    </div>
+    <div class="form-row">
+        
+        <mat-form-field class="form-field">
+            <input
+              placeholder="Bodily Injury Liability"
+              aria-label="Bodily Injury Liability"
+              matInput
+              formControlName="bodilyInjuryLiability"
+              [matAutocomplete]="autoBodilyInjuryLiability">
+            <mat-autocomplete autoActiveFirstOption #autoBodilyInjuryLiability="matAutocomplete">
+              <mat-option *ngFor="let option of binaryOptions" [value]="option">
+                {{ option == '1' ? 'Yes': 'No' }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="insuranceForm.get('vehicleSegment')?.hasError('required')">Vehicle Segment is required</mat-error>
+    
+        </mat-form-field>
+
+        <mat-form-field class="form-field">
+            <input
+              placeholder="Personal Injury Protection"
+              aria-label="Personal Injury Protection"
+              matInput
+              formControlName="personalInjuryProtection"
+              [matAutocomplete]="autopersonalInjuryProtection">
+            <mat-autocomplete autoActiveFirstOption #autopersonalInjuryProtection="matAutocomplete">
+              <mat-option *ngFor="let option of binaryOptions" [value]="option">
+                {{ option == '1' ? 'Yes': 'No' }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="insuranceForm.get('personalInjuryProtection')?.hasError('required')">Personal Injury Protection is required</mat-error>
+    
+        </mat-form-field>
+
+        <mat-form-field class="form-field">
+            <input
+              placeholder="Property Damage Liability"
+              aria-label="Property Damage Liability"
+              matInput
+              formControlName="propertyDamageLiability"
+              [matAutocomplete]="autopropertyDamageLiability">
+            <mat-autocomplete autoActiveFirstOption #autopropertyDamageLiability="matAutocomplete">
+              <mat-option *ngFor="let option of binaryOptions" [value]="option">
+                {{ option == '1' ? 'Yes': 'No' }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="insuranceForm.get('propertyDamageLiability')?.hasError('required')">Property Damage Liability is required</mat-error>
+    
+        </mat-form-field>
+
+    </div>
+    <div class="form-row">
+        <mat-form-field class="form-field">
+            <input
+              placeholder="Collision"
+              aria-label="Collision"
+              matInput
+              formControlName="collision"
+              [matAutocomplete]="autocollision">
+            <mat-autocomplete autoActiveFirstOption #autocollision="matAutocomplete">
+              <mat-option *ngFor="let option of binaryOptions" [value]="option">
+                {{ option == '1' ? 'Yes': 'No' }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="insuranceForm.get('collision')?.hasError('required')">Collision is required</mat-error>
+    
+        </mat-form-field>
+
+        <mat-form-field class="form-field">
+            <input
+              placeholder="Comprehensive"
+              aria-label="Comprehensive"
+              matInput
+              formControlName="comprehensive"
+              [matAutocomplete]="autocomprehensive">
+            <mat-autocomplete autoActiveFirstOption #autocomprehensive="matAutocomplete">
+              <mat-option *ngFor="let option of binaryOptions" [value]="option">
+                {{ option == '1' ? 'Yes': 'No' }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="insuranceForm.get('comprehensive')?.hasError('required')">Comprehensive is required</mat-error>
+    
+        </mat-form-field>
+
+        <mat-form-field class="form-field">
+            <input
+              placeholder="Customer Gender"
+              aria-label="Customer Gender"
+              matInput
+              formControlName="customerGender"
+              [matAutocomplete]="autocustomerGender">
+            <mat-autocomplete autoActiveFirstOption #autocustomerGender="matAutocomplete">
+              <mat-option *ngFor="let option of customerGenderOptions" [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="insuranceForm.get('customerGender')?.hasError('required')">Customer Gender is required</mat-error>
+    
+        </mat-form-field>
+
+    </div>
+
+    <div class="form-row">
+        <mat-form-field class="form-field">
+            <input
+              placeholder="Customer Income Group"
+              aria-label="Customer Income Group"
+              matInput
+              formControlName="customerIncomeGroup"
+              [matAutocomplete]="autocustomerIncomeGroup">
+            <mat-autocomplete autoActiveFirstOption #autocustomerIncomeGroup="matAutocomplete">
+              <mat-option *ngFor="let option of customerIncomeGroupOptions" [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="insuranceForm.get('customerIncomeGroup')?.hasError('required')">Customer Income Group is required</mat-error>
+    
+        </mat-form-field>
+
+        <mat-form-field class="form-field">
+            <input
+              placeholder="Customer Region"
+              aria-label="Customer Region"
+              matInput
+              formControlName="customerRegion"
+              [matAutocomplete]="autocustomerRegion">
+            <mat-autocomplete autoActiveFirstOption #autocustomerRegion="matAutocomplete">
+              <mat-option *ngFor="let option of customerRegionOptions" [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="insuranceForm.get('customerRegion')?.hasError('required')">Customer Region is required</mat-error>
+    
+        </mat-form-field>
+
+        <mat-form-field class="form-field">
+            <input
+              placeholder="Customer Marital Status"
+              aria-label="Customer Marital Status"
+              matInput
+              formControlName="customerMaritalStatus"
+              [matAutocomplete]="autocustomerMaritalStatus">
+            <mat-autocomplete autoActiveFirstOption #autocustomerMaritalStatus="matAutocomplete">
+              <mat-option *ngFor="let option of binaryOptions" [value]="option">
+                {{ option == '1' ? 'Yes': 'No' }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="insuranceForm.get('customerMaritalStatus')?.hasError('required')">Customer Marital Status is required</mat-error>
+    
+        </mat-form-field>
+
+    </div>
+  
+    <button mat-raised-button color="primary" type="submit" class="submit-button">Submit</button>
+  </form>
+  

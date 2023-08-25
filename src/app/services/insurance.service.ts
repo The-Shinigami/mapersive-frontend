@@ -39,7 +39,7 @@ export class InsuranceService {
 
   async save(row:Insurance){
        let isSaved = false
-       await this.api.post("insurance/",row).then(
+       await this.api.post("insurance",row).then(
          (response) => {
            isSaved = true
        }
