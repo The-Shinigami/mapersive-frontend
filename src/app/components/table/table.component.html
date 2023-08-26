@@ -39,20 +39,20 @@
       </ng-container>
 
       <!-- Bodily Injury Liability Column -->
-    <ng-container matColumnDef="bodilyInjuryLiability">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Bodily Injury Liability </mat-header-cell>
+    <ng-container matColumnDef="bodilyInjuryLiability"  >
+      <mat-header-cell matTooltip="Bodily Injury Liability"  *matHeaderCellDef mat-sort-header> B.I.L </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{ row.bodilyInjuryLiability }} </mat-cell>
     </ng-container>
 
     <!-- Personal Injury Protection Column -->
     <ng-container matColumnDef="personalInjuryProtection">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Personal Injury Protection </mat-header-cell>
+      <mat-header-cell matTooltip="Personal Injury Protection"  *matHeaderCellDef mat-sort-header> P.I.P </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{ row.personalInjuryProtection }} </mat-cell>
     </ng-container>
 
     <!-- Property Damage Liability Column -->
     <ng-container matColumnDef="propertyDamageLiability">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Property Damage Liability </mat-header-cell>
+      <mat-header-cell matTooltip="Property Damage Liability" *matHeaderCellDef mat-sort-header> P.D.L </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{ row.propertyDamageLiability }} </mat-cell>
     </ng-container>
 
@@ -94,21 +94,21 @@
   
   
     <!-- Action Column -->
-    <ng-container matColumnDef="edit">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Edit </mat-header-cell>
+    <ng-container matColumnDef="edit" >
+      <mat-header-cell *matHeaderCellDef mat-sort-header > Edit </mat-header-cell>
       <mat-cell *matCellDef="let row"> 
         <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
           color="primary" (click)="edit(row)">
-          <mat-icon>edit</mat-icon>
+          <mat-icon class="icon-edit-color">edit</mat-icon>
         </button> </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="delete">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Delete </mat-header-cell>
-      <mat-cell *matCellDef="let row"> 
+    <ng-container matColumnDef="delete" class="tw-max-w-fit">
+      <mat-header-cell *matHeaderCellDef mat-sort-header > Delete </mat-header-cell>
+      <mat-cell *matCellDef="let row" > 
         <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" 
           (click)="delete(row)" color="warn">
-          <mat-icon>delete</mat-icon>
+          <mat-icon class="icon-delete-color">delete</mat-icon>
         </button> </mat-cell>
     </ng-container>
 

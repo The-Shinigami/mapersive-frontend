@@ -14,6 +14,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon'
 import {MatButtonModule} from '@angular/material/button'
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatCardModule} from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +35,10 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatSortModule,
     MatIconModule,
     MatButtonModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTooltipModule,
+    MatCardModule,
+    MatGridListModule
 
   ],
   providers: [],

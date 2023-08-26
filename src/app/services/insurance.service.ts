@@ -13,7 +13,7 @@ export class InsuranceService {
   insurances:Insurance[] = []
   totalElements:number = 0
   constructor() { }
-  async getAll(page = '0',size ='5',sort={column:'',direction:''}):Promise<[Insurance[],number]> {
+  async getAll(page = '0',size ='5',sort={column:'id',direction:'asc'}):Promise<[Insurance[],number]> {
 
   await this.api.get("insurance?page="+page+"&size="+size+"&sort="+sort.column+","+sort.direction,{})
       .then(

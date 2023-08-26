@@ -3,3 +3,29 @@
 @tailwind components;
 @tailwind utilities;
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+.icon-edit-color{
+    color: rgb(115, 165, 115);
+}
+.icon-delete-color{
+    color: rgb(165, 115, 115);
+}
+
+.button-edit-bg-color{
+    background-color: rgb(115, 165, 115)!important;
+}
+.button-edit-bg-color:hover{
+    background-color: rgb(105, 102, 102)!important;
+}
+.button-delete-bg-color:hover{
+    background-color: rgb(105, 102, 102)!important;
+}
+.button-delete-bg-color{
+    background-color: rgb(165, 115, 115)!important;
+}
+body {
+    background-image: url('./assets/3d-background-with-white-cubes.jpg'); /* Adjust the image path */
+    background-repeat: no-repeat;
+    background-size: cover;
+  }

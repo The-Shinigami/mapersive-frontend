@@ -1,0 +1,14 @@
+
+.cards-container {
+    height: 80%;
+    display: flex;
+    flex-wrap: wrap; /* Wrap cards to next row if necessary */
+    gap: 36px; /* Spacing between cards */
+  }
+  
+  .example-card {
+    flex: 1; /* Distribute available space evenly among cards */
+    max-width: 278px; /* Set a maximum width for each card */
+    min-width: 278px;
+  }
+  

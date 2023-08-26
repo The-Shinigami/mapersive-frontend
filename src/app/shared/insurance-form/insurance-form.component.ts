@@ -1,16 +1,21 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild,Input,OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { InsuranceService } from 'src/app/services/insurance.service';
+import Insurance from '../model/insurance';
 
 @Component({
   selector: 'app-insurance-form',
   templateUrl: './insurance-form.component.html',
   styleUrls: ['./insurance-form.component.css']
 })
-export class InsuranceFormComponent {
+export class InsuranceFormComponent implements OnInit{
   insuranceForm: FormGroup;
   @ViewChild('regForm', { static: false })
   myForm!: NgForm;
+
+  @Input() insuranceToUpdate: Insurance | undefined;
+  @Output() closeUpdateDialog = new EventEmitter<Insurance>();
+  @Output() cancelDialog = new EventEmitter();
   
   constructor(private fb: FormBuilder,private insuranceService:InsuranceService) {
     this.insuranceForm = this.fb.group({
@@ -32,6 +37,11 @@ export class InsuranceFormComponent {
       customerMaritalStatus: [null, Validators.required]
     });
   }
+  ngOnInit(): void {
+    if(this.insuranceToUpdate != undefined){
+      this.insuranceForm.setValue(this.insuranceToUpdate);
+    }
+  }
 
   fuelOptions:string[] = ['Petrol' ,'Diesel', 'CNG']
   vehicleSegmentOptions:string[] = [ 'A','B','C' ]
@@ -41,12 +51,24 @@ export class InsuranceFormComponent {
   customerRegionOptions:string[] = ['South', 'West', 'North', 'East']
   async onSubmit() {
     if (this.insuranceForm.valid) {
-
+     
       await this.insuranceService.save(this.insuranceForm.value) 
       this.myForm.resetForm();
+
+      if(this.insuranceToUpdate != undefined){
+        this.closeUpdateDialog.emit();
+      }
+      
     }
-    else{
-      console.log(this.insuranceForm)
+    
+  }
+
+  cancel(){
+    this.myForm.resetForm();
+
+    if(this.insuranceToUpdate != undefined){
+      this.cancelDialog.emit();
     }
+    
   }
 }

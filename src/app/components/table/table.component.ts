@@ -7,6 +7,7 @@ import { PageEvent } from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmationComponent } from 'src/app/shared/dialog/delete-confirmation/delete-confirmation.component';
+import { UpdateComponent } from 'src/app/shared/dialog/update/update.component';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -18,8 +19,8 @@ export class TableComponent {
   totalElements :number = 0;
   currentPage = '0';
   currentSize = '5';
-  currentSortColumn = ""
-  currentSortDirection = ""
+  currentSortColumn = "id"
+  currentSortDirection = "asc"
   displayedColumns = [
     // 'policyId',
     'dateOfPurchase',
@@ -90,7 +91,7 @@ async delete(row:Insurance){
   this.openDeleteDialog(row);
 }
 async edit(row:Insurance){
-  console.log(row)
+  this.openUpdateDialog(row);
 }
 
    openDeleteDialog(row:Insurance) {
@@ -108,6 +109,24 @@ async edit(row:Insurance){
         [this.insurances,this.totalElements] = await this.insuranceService.getAll(this.currentPage,this.currentSize,sort);
         this.dataSource = new MatTableDataSource(this.insurances);
       }
+      }
+    });
+  }
+
+  openUpdateDialog(row:Insurance) {
+    const dialogRef = this.dialog.open(UpdateComponent,{
+      data:row
+    });
+
+    dialogRef.afterClosed().subscribe(async result => {
+      if(result){
+        console.log(result)
+        const sort = {
+          column: this.currentSortColumn,
+          direction: this.currentSortDirection
+        };
+        [this.insurances,this.totalElements] = await this.insuranceService.getAll(this.currentPage,this.currentSize,sort);
+        this.dataSource = new MatTableDataSource(this.insurances);    
       }
     });
   }
