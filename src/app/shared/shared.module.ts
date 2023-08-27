@@ -14,6 +14,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { UpdateComponent } from './dialog/update/update.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 @NgModule({
   declarations: [
     DeleteConfirmationComponent,
@@ -32,7 +34,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatNativeDateModule,
     MatTabsModule,
     MatAutocompleteModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule
   ]
 })
 export class SharedModule { }

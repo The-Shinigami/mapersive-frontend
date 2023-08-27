@@ -18,6 +18,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { ValueToIconPipe } from './shared/pipe/value-to-icon.pipe';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +41,7 @@ import { ValueToIconPipe } from './shared/pipe/value-to-icon.pipe';
     MatTooltipModule,
     MatCardModule,
     MatGridListModule,
+    MatSnackBarModule
 
   ],
   providers: [],

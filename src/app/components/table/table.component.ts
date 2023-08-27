@@ -8,6 +8,8 @@ import {Sort} from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmationComponent } from 'src/app/shared/dialog/delete-confirmation/delete-confirmation.component';
 import { UpdateComponent } from 'src/app/shared/dialog/update/update.component';
+import ResponseHandler from 'src/app/shared/model/response';
+import { MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -41,8 +43,10 @@ export class TableComponent {
     'delete'
   ];
   dataSource: MatTableDataSource<Insurance> = new MatTableDataSource();
+  horizontalPosition: MatSnackBarHorizontalPosition = 'start';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
-  constructor(private insuranceService:InsuranceService,public dialog: MatDialog){}
+  constructor(private insuranceService:InsuranceService,public dialog: MatDialog,private _snackBar: MatSnackBar){}
 
   ngOnInit(): void {
     this.getInsurances();
@@ -96,11 +100,17 @@ async edit(row:Insurance){
 
    openDeleteDialog(row:Insurance) {
     const dialogRef = this.dialog.open(DeleteConfirmationComponent);
-
     dialogRef.afterClosed().subscribe(async result => {
       if(result){
-      const isDeleted = await this.insuranceService.remove(row);
-      if(isDeleted){
+      const res : ResponseHandler= await this.insuranceService.remove(row);
+      if(res.status == "OK"){
+        let config = new MatSnackBarConfig();
+        config.duration = 1000;
+        config.horizontalPosition = this.horizontalPosition;
+        config.verticalPosition = this.verticalPosition;
+  
+        this._snackBar.open(res.payload, 'Close',config);
+
         const sort = {
           column: this.currentSortColumn,
           direction: this.currentSortDirection
@@ -120,7 +130,6 @@ async edit(row:Insurance){
 
     dialogRef.afterClosed().subscribe(async result => {
       if(result){
-        console.log(result)
         const sort = {
           column: this.currentSortColumn,
           direction: this.currentSortDirection

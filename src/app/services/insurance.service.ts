@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import Insurance from '../shared/model/insurance';
-
+import ResponseHandler from '../shared/model/response';
 
 const URL_BASE = "http://localhost:8080/api/"
 @Injectable({
@@ -28,23 +28,34 @@ export class InsuranceService {
   }
 
   async remove(row:Insurance){
- let isDeleted = false
+  let res :ResponseHandler = {status:'',payload:''};
+
     await this.api.delete("insurance/"+row.insuranceId.toString()).then(
       (response) => {
-        isDeleted = response.data
+        res = response.data
     }
     )
-    return isDeleted;
+    return res;
   }
 
-  async save(row:Insurance){
-       let isSaved = false
+  async saveInsert(row:Insurance){
+    let res :ResponseHandler = {status:'',payload:''};
        await this.api.post("insurance",row).then(
          (response) => {
-           isSaved = true
+          res = response.data
        }
        )
-       return isSaved;
+       return res;
      }
+
+     async saveUpdate(row:Insurance){
+      let res :ResponseHandler = {status:'',payload:''};
+      await this.api.put("insurance",row).then(
+        (response) => {
+          res = response.data
+      }
+      )
+      return res;
+    }
   
 }

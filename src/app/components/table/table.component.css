@@ -1,3 +1,21 @@
 .mat-table *{
     min-width: 100px;
 }
+
+::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+   
+    background-color: rgb(180, 235, 188)!important;
+
+  }
+
+    
+  ::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__label {
+   
+    color: black!important;
+
+  }
+  ::ng-deep .mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled) {
+   
+    color: black!important;
+
+  }

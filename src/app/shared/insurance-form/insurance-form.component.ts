@@ -2,6 +2,8 @@ import { Component, ViewChild,Input,OnInit, Output, EventEmitter } from '@angula
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { InsuranceService } from 'src/app/services/insurance.service';
 import Insurance from '../model/insurance';
+import ResponseHandler from '../model/response';
+import { MatSnackBarConfig,MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-insurance-form',
@@ -16,8 +18,13 @@ export class InsuranceFormComponent implements OnInit{
   @Input() insuranceToUpdate: Insurance | undefined;
   @Output() closeUpdateDialog = new EventEmitter<Insurance>();
   @Output() cancelDialog = new EventEmitter();
-  
-  constructor(private fb: FormBuilder,private insuranceService:InsuranceService) {
+
+  horizontalPosition: MatSnackBarHorizontalPosition = 'start';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+
+  customPrimaryColor = ''
+
+  constructor(private fb: FormBuilder,private insuranceService:InsuranceService,private _snackBar: MatSnackBar) {
     this.insuranceForm = this.fb.group({
       insuranceId: [null],
       policyId: [null, Validators.required],
@@ -51,14 +58,27 @@ export class InsuranceFormComponent implements OnInit{
   customerRegionOptions:string[] = ['South', 'West', 'North', 'East']
   async onSubmit() {
     if (this.insuranceForm.valid) {
-     
-      await this.insuranceService.save(this.insuranceForm.value) 
-      this.myForm.resetForm();
+     let res: ResponseHandler;
 
+     
       if(this.insuranceToUpdate != undefined){
+      res =  await this.insuranceService.saveUpdate(this.insuranceForm.value) 
         this.closeUpdateDialog.emit();
+      }else{
+      res =  await this.insuranceService.saveInsert(this.insuranceForm.value) 
+       
       }
-      
+
+
+      let config = new MatSnackBarConfig();
+      config.duration = 1000;
+      config.horizontalPosition = this.horizontalPosition;
+      config.verticalPosition = this.verticalPosition;
+
+      this._snackBar.open(res.payload, 'Close',config);
+
+     
+      this.myForm.resetForm();
     }
     
   }

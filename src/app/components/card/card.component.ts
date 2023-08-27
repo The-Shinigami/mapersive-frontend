@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
+import { MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { InsuranceService } from 'src/app/services/insurance.service';
 import { DeleteConfirmationComponent } from 'src/app/shared/dialog/delete-confirmation/delete-confirmation.component';
 import { UpdateComponent } from 'src/app/shared/dialog/update/update.component';
 import Insurance from 'src/app/shared/model/insurance';
+import ResponseHandler from 'src/app/shared/model/response';
 
 @Component({
   selector: 'app-card',
@@ -19,8 +21,12 @@ export class CardComponent {
   currentSize = '6';
   currentSortColumn = "id"
   currentSortDirection = "asc"
+  
+  horizontalPosition: MatSnackBarHorizontalPosition = 'start';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
-  constructor(private insuranceService:InsuranceService,public dialog: MatDialog){}
+
+  constructor(private insuranceService:InsuranceService,public dialog: MatDialog,private _snackBar: MatSnackBar){}
 
 
   ngOnInit(): void {
@@ -70,8 +76,14 @@ showMore: { [key: number]: boolean } = {}; // Object to track expanded states
   
       dialogRef.afterClosed().subscribe(async result => {
         if(result){
-        const isDeleted = await this.insuranceService.remove(row);
-        if(isDeleted){
+        const res : ResponseHandler = await this.insuranceService.remove(row);
+        if(res.status == "OK"){
+          let config = new MatSnackBarConfig();
+          config.duration = 1000;
+          config.horizontalPosition = this.horizontalPosition;
+          config.verticalPosition = this.verticalPosition;
+    
+          this._snackBar.open(res.payload, 'Close',config);
           const sort = {
             column: this.currentSortColumn,
             direction: this.currentSortDirection
