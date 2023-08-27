@@ -71,7 +71,7 @@ export class InsuranceFormComponent implements OnInit{
 
 
       let config = new MatSnackBarConfig();
-      config.duration = 1000;
+      config.duration = 1500;
       config.horizontalPosition = this.horizontalPosition;
       config.verticalPosition = this.verticalPosition;
 

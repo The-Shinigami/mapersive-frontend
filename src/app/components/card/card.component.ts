@@ -79,7 +79,7 @@ showMore: { [key: number]: boolean } = {}; // Object to track expanded states
         const res : ResponseHandler = await this.insuranceService.remove(row);
         if(res.status == "OK"){
           let config = new MatSnackBarConfig();
-          config.duration = 1000;
+          config.duration = 1500;
           config.horizontalPosition = this.horizontalPosition;
           config.verticalPosition = this.verticalPosition;
     
