@@ -33,8 +33,8 @@ Setting the stage for success, I organized the project with precision:
 Here's where the magic happens! I breathed life into the project by bringing core features to life:
 
 - **CRUD Service:** The beating heart of the project, this service orchestrates CRUD (Create, Read, Update, Delete) operations for insurance records.
-- **Table Component:** With sorting functionality as a cornerstone, I constructed a table view that elegantly showcases insurance records.
-- **Card Component:** Combining aesthetics and functionality, the card view beautifully presents insurance records within a responsive grid.
+- **Table Component:** With sorting and pagination functionalitied as a cornerstone, I constructed a table view that elegantly showcases insurance records.
+- **Card Component:** Combining aesthetics and functionality, the card view beautifully presents insurance records within a responsive grid with pagination to optimize response time.
 
 ## Step 5: Enhancements
 
