@@ -46,11 +46,30 @@ I'm not one to settle for ordinary. To enrich the user experience, I injected en
 
 ## Step 6: Project Deployment
 
-Ensuring accessibility, I've prepared the project for deployment using Docker:
+### Generate Bundle
+To deploy the project, I generated a project bundle using the Angular CLI's `ng build` command. This process compiles the application and creates optimized files ready for deployment.
 
-1. Begin by cloning the project repository to your local environment.
-2. Install the required dependencies by running the command `npm install`.
-3. Launch the application with `ng serve`.
+### Create Dockerfile
+For streamlined deployment across various environments, I crafted a Dockerfile. This Dockerfile outlines the precise instructions for constructing a Docker image that encapsulates the user interface and its essential dependencies.
+
+## Getting Started
+
+### Prerequisites
+
+Before you immerse yourself in the magic of **mapersive-frontend**, ensure you have the following prerequisites in place:
+
+- **Node.js 18.10:** A powerful runtime environment to execute JavaScript applications.
+- **Angular CLI 16.2.0:** The command-line interface for Angular, ensuring streamlined development.
+
+### Clone the Repository
+
+Begin by cloning the project repository using the following command:
+- git clone https://github.com/The-Shinigami/mapersive-frontend.git
+
+### Running the API Locally
+
+1. Install the required dependencies by running the command `npm install`.
+2. Launch the application with `ng serve`.
    
 **Access your interface by navigating to `localhost:4200` in your preferred web browser.**
 
