@@ -1,5 +1,5 @@
-<div class="example-container mat-elevation-z8 tw-container">
-    <mat-table [dataSource]="dataSource" matSort  (matSortChange)="sortData($event)">
+<div class="tw-container">
+    <mat-table [dataSource]="dataSource" matSort  (matSortChange)="sortData($event)" class="mat-table">
       
   
       <!-- Policy ID Column -->
@@ -9,9 +9,9 @@
       </ng-container>
    -->
       <!-- Date of Purchase Column -->
-      <ng-container matColumnDef="dateOfPurchase">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Date of Purchase </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.dateOfPurchase }} </mat-cell>
+      <ng-container  matColumnDef="dateOfPurchase">
+        <mat-header-cell class="dateOfPurchase" *matHeaderCellDef mat-sort-header> Date of Purchase </mat-header-cell>
+        <mat-cell class="dateOfPurchase" *matCellDef="let row"> {{ row.dateOfPurchase }} </mat-cell>
       </ng-container>
   
       <!-- Customer ID Column -->
@@ -41,31 +41,31 @@
       <!-- Bodily Injury Liability Column -->
     <ng-container matColumnDef="bodilyInjuryLiability"  >
       <mat-header-cell matTooltip="Bodily Injury Liability"  *matHeaderCellDef mat-sort-header> B.I.L </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.bodilyInjuryLiability }} </mat-cell>
+      <mat-cell *matCellDef="let row"> <mat-icon> {{ row.bodilyInjuryLiability  | valueToIcon }} </mat-icon></mat-cell>
     </ng-container>
 
     <!-- Personal Injury Protection Column -->
     <ng-container matColumnDef="personalInjuryProtection">
       <mat-header-cell matTooltip="Personal Injury Protection"  *matHeaderCellDef mat-sort-header> P.I.P </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.personalInjuryProtection }} </mat-cell>
+      <mat-cell *matCellDef="let row"> <mat-icon> {{ row.personalInjuryProtection  | valueToIcon }} </mat-icon></mat-cell>
     </ng-container>
 
     <!-- Property Damage Liability Column -->
     <ng-container matColumnDef="propertyDamageLiability">
       <mat-header-cell matTooltip="Property Damage Liability" *matHeaderCellDef mat-sort-header> P.D.L </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.propertyDamageLiability }} </mat-cell>
+      <mat-cell *matCellDef="let row"><mat-icon>  {{ row.propertyDamageLiability  | valueToIcon }} </mat-icon></mat-cell>
     </ng-container>
 
     <!-- Collision Column -->
     <ng-container matColumnDef="collision">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Collision </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.collision }} </mat-cell>
+      <mat-cell *matCellDef="let row"> <mat-icon> {{ row.collision  | valueToIcon }}</mat-icon> </mat-cell>
     </ng-container>
 
     <!-- Comprehensive Column -->
     <ng-container matColumnDef="comprehensive">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Comprehensive </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.comprehensive }} </mat-cell>
+      <mat-cell  *matCellDef="let row"><mat-icon>  {{ row.comprehensive  | valueToIcon }} </mat-icon></mat-cell>
     </ng-container>
 
     <!-- Customer Gender Column -->
@@ -89,7 +89,7 @@
     <!-- Customer Marital Status Column -->
     <ng-container matColumnDef="customerMaritalStatus">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Customer Marital Status </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{ row.customerMaritalStatus }} </mat-cell>
+      <mat-cell *matCellDef="let row"> <mat-icon> {{ row.customerMaritalStatus | valueToIcon}} </mat-icon></mat-cell>
     </ng-container>
   
   
@@ -116,7 +116,7 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10]" [pageSize]="5" [length]="totalElements" (page)="nextPage($event)"  [showFirstLastButtons]="true"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[5, 10]" [pageSize]="10" [length]="totalElements" (page)="nextPage($event)"  [showFirstLastButtons]="true"></mat-paginator>
   
   
 </div>

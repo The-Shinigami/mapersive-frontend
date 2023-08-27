@@ -1,14 +1,41 @@
 
-.cards-container {
-    height: 80%;
-    display: flex;
-    flex-wrap: wrap; /* Wrap cards to next row if necessary */
-    gap: 36px; /* Spacing between cards */
+
+  .card-container {
+    display: grid;
+    gap: 20px;
   }
   
-  .example-card {
-    flex: 1; /* Distribute available space evenly among cards */
-    max-width: 278px; /* Set a maximum width for each card */
-    min-width: 278px;
+  .card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+    background-color: #f7f7f7;
+  }
+  
+  /* Media Query for Small Screens */
+  @media (max-width: 600px) {
+    .card-container {
+      grid-template-columns: 1fr; /* Single card per row */
+      
+    }
+
+    .card{
+        width: 80%;
+        margin: auto;
+    }
+  }
+  
+  /* Media Query for Medium Screens */
+  @media (min-width: 601px) and (max-width: 900px) {
+    .card-container {
+      grid-template-columns: repeat(2, 1fr); /* Two cards per row */
+    }
+  }
+  
+  /* Media Query for Large Screens */
+  @media (min-width: 901px) {
+    .card-container {
+      grid-template-columns: repeat(3, 1fr); /* Three cards per row */
+    }
   }
   

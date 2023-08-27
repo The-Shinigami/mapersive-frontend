@@ -17,12 +17,13 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
-
+import { ValueToIconPipe } from './shared/pipe/value-to-icon.pipe';
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
-    CardComponent
+    CardComponent,
+    ValueToIconPipe
   ],
   imports: [
     BrowserModule,
@@ -38,7 +39,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
     MatTabsModule,
     MatTooltipModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
 
   ],
   providers: [],

@@ -1,28 +1,26 @@
-<div class="cards-container tw-container">
-    <mat-card class="example-card tw-absolute tw-p-5" *ngFor="let insurance of insurances">
+<div class="card-container tw-container">
+    <mat-card class="card tw-absolute tw-p-5" *ngFor="let insurance of insurances">
         <mat-card-header>
           <mat-card-title>Policy ID: {{ insurance.policyId }}</mat-card-title>
           <mat-card-subtitle>Date : {{ insurance.dateOfPurchase }}</mat-card-subtitle>
         </mat-card-header>
-<hr class="tw-my-2">
+        <hr class="tw-my-2">
         <mat-card-content  >
             <div class="content-toggle">
                 <p><strong>Fuel:</strong> {{ insurance.fuel }}</p>
                 <p><strong>Vehicle Segment:</strong> {{ insurance.vehicleSegment }}</p>
                 <p><strong>Premium:</strong> {{ insurance.premium }}</p>
                 <div *ngIf="showMore[insurance.insuranceId]" class="tw-absolute tw-bg-white tw-p-3 tw-left-64 tw-w-72 tw-z-10 tw-border-4">
-                <p><strong>Bodily Injury Liability:</strong> {{ insurance.bodilyInjuryLiability }}</p>
-                <p><strong>Personal Injury Protection:</strong> {{ insurance.personalInjuryProtection }}</p>
-                <p><strong>Property Damage Liability:</strong> {{ insurance.propertyDamageLiability }}</p>
-                <p><strong>Collision:</strong> {{ insurance.collision }}</p>
-                <p><strong>Comprehensive:</strong> {{ insurance.comprehensive }}</p>
+                <p><strong>Bodily Injury Liability:</strong><mat-icon>  {{ insurance.bodilyInjuryLiability | valueToIcon }}</mat-icon></p>
+                <p><strong>Personal Injury Protection:</strong><mat-icon>  {{ insurance.personalInjuryProtection | valueToIcon }} </mat-icon></p>
+                <p><strong>Property Damage Liability:</strong><mat-icon>  {{ insurance.propertyDamageLiability  | valueToIcon}} </mat-icon></p>
+                <p><strong>Collision:</strong><mat-icon>  {{ insurance.collision  | valueToIcon}} </mat-icon></p>
+                <p><strong>Comprehensive:</strong><mat-icon>  {{ insurance.comprehensive | valueToIcon }} </mat-icon></p>
                 <p><strong>Customer Gender:</strong> {{ insurance.customerGender }}</p>
                 <p><strong>Customer Income Group:</strong> {{ insurance.customerIncomeGroup }}</p>
                 <p><strong>Customer Region:</strong> {{ insurance.customerRegion }}</p>
-                <p><strong>Customer Marital Status:</strong> {{ insurance.customerMaritalStatus }}</p>
-                </div>
-
-               
+                <p><strong>Customer Marital Status:</strong><mat-icon>  {{ insurance.customerMaritalStatus | valueToIcon }} </mat-icon></p>
+                </div>           
             </div>   
 
         </mat-card-content>
@@ -35,7 +33,8 @@
          </button>
         </mat-card-actions>
       </mat-card>
-      <mat-paginator class="tw-mt-4 tw-w-full" [pageSizeOptions]="[5, 10]" [pageSize]="5" [length]="totalElements" (page)="nextPage($event)"  [showFirstLastButtons]="true"></mat-paginator>
 
 </div>
+<mat-paginator class="tw-mt-4 tw-w-full" [pageSizeOptions]="[3 ,6, 12]" [pageSize]="6" [length]="totalElements" (page)="nextPage($event)"  [showFirstLastButtons]="true"></mat-paginator>
+
 

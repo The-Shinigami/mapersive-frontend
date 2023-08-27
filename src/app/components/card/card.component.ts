@@ -16,7 +16,7 @@ export class CardComponent {
   insurances:Insurance[] = []
   totalElements :number = 0;
   currentPage = '0';
-  currentSize = '5';
+  currentSize = '6';
   currentSortColumn = "id"
   currentSortDirection = "asc"
 
@@ -29,7 +29,7 @@ export class CardComponent {
 
   async getInsurances() {
     try {
-      [this.insurances,this.totalElements] = await this.insuranceService.getAll();
+      [this.insurances,this.totalElements] = await this.insuranceService.getAll(this.currentPage,this.currentSize);
 
 
       

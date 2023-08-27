@@ -1,32 +1,32 @@
-<form #regForm="ngForm" [formGroup]="insuranceForm" (ngSubmit)="onSubmit()" class="insurance-form  tw-bg-white tw-rounded-md tw-border-2 tw-p-8">
+<form #regForm="ngForm" [formGroup]="insuranceForm" (ngSubmit)="onSubmit()" class="card-container insurance-form  tw-bg-white tw-rounded-md tw-border-2 tw-p-8">
  
-    <div class="form-row">
-      <mat-form-field class="form-field">
+    <!-- <div class="form-row"> -->
+      <mat-form-field class="card">
         <input matInput placeholder="Policy ID" formControlName="policyId">
         <mat-error *ngIf="insuranceForm.get('policyId')?.hasError('required')">Policy ID is required</mat-error>
       </mat-form-field>
       
-      <!-- <mat-form-field class="form-field">
+      <!-- <mat-form-field class="card">
         <input matInput [matDatepicker]="datePicker" placeholder="Date of Purchase" formControlName="dateOfPurchase" required>
         <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
         <mat-datepicker #datePicker></mat-datepicker>
         <mat-error *ngIf="insuranceForm.get('dateOfPurchase')?.hasError('required')">Date of Purchase is required</mat-error>
       </mat-form-field> -->
 
-      <mat-form-field class="form-field">
+      <mat-form-field class="card">
         <input matInput placeholder="Date of Purchase" formControlName="dateOfPurchase">
         <mat-error *ngIf="insuranceForm.get('dateOfPurchase')?.hasError('required')">Date Of Purchase is required</mat-error>
       </mat-form-field>
 
-      <mat-form-field class="form-field">
+      <mat-form-field class="card">
         <input matInput placeholder="Customer ID" formControlName="customerId" required>
         <mat-error *ngIf="insuranceForm.get('customerId')?.hasError('required')">Customer ID is required</mat-error>
       </mat-form-field>
-    </div>
+    <!-- </div> -->
     
-    <div class="form-row">
+    <!-- <div class="form-row"> -->
 
-      <mat-form-field class="form-field">
+      <mat-form-field class="card">
         <input
           placeholder="Fuel"
           aria-label="Fuel"
@@ -42,7 +42,7 @@
 
       </mat-form-field>
 
-      <mat-form-field class="form-field">
+      <mat-form-field class="card">
         <input
           placeholder="Vehicle Segment"
           aria-label="Vehicle Segment"
@@ -58,15 +58,15 @@
 
       </mat-form-field>
 
-      <mat-form-field class="form-field">
+      <mat-form-field class="card">
         <input matInput placeholder="Premium" formControlName="premium">
         <mat-error *ngIf="insuranceForm.get('premium')?.hasError('required')">Premium is required</mat-error>
       </mat-form-field>
 
-    </div>
-    <div class="form-row">
+    <!-- </div> -->
+    <!-- <div class="form-row"> -->
         
-        <mat-form-field class="form-field">
+        <mat-form-field class="card">
             <input
               placeholder="Bodily Injury Liability"
               aria-label="Bodily Injury Liability"
@@ -82,7 +82,7 @@
     
         </mat-form-field>
 
-        <mat-form-field class="form-field">
+        <mat-form-field class="card">
             <input
               placeholder="Personal Injury Protection"
               aria-label="Personal Injury Protection"
@@ -98,7 +98,7 @@
     
         </mat-form-field>
 
-        <mat-form-field class="form-field">
+        <mat-form-field class="card">
             <input
               placeholder="Property Damage Liability"
               aria-label="Property Damage Liability"
@@ -114,9 +114,9 @@
     
         </mat-form-field>
 
-    </div>
-    <div class="form-row">
-        <mat-form-field class="form-field">
+    <!-- </div>
+    <div class="form-row"> -->
+        <mat-form-field class="card">
             <input
               placeholder="Collision"
               aria-label="Collision"
@@ -132,7 +132,7 @@
     
         </mat-form-field>
 
-        <mat-form-field class="form-field">
+        <mat-form-field class="card">
             <input
               placeholder="Comprehensive"
               aria-label="Comprehensive"
@@ -148,7 +148,7 @@
     
         </mat-form-field>
 
-        <mat-form-field class="form-field">
+        <mat-form-field class="card">
             <input
               placeholder="Customer Gender"
               aria-label="Customer Gender"
@@ -164,10 +164,10 @@
     
         </mat-form-field>
 
-    </div>
+    <!-- </div> -->
 
-    <div class="form-row">
-        <mat-form-field class="form-field">
+    <!-- <div class="form-row"> -->
+        <mat-form-field class="card">
             <input
               placeholder="Customer Income Group"
               aria-label="Customer Income Group"
@@ -183,7 +183,7 @@
     
         </mat-form-field>
 
-        <mat-form-field class="form-field">
+        <mat-form-field class="card">
             <input
               placeholder="Customer Region"
               aria-label="Customer Region"
@@ -199,7 +199,7 @@
     
         </mat-form-field>
 
-        <mat-form-field class="form-field">
+        <mat-form-field class="card">
             <input
               placeholder="Customer Marital Status"
               aria-label="Customer Marital Status"
@@ -215,10 +215,11 @@
     
         </mat-form-field>
 
-    </div>
+    <!-- </div> -->
     <div >
       <button *ngIf="this.insuranceToUpdate != undefined"  mat-raised-button color="secendary" class="submit-button" (click)="cancel()">Cancel</button>
       <button  mat-raised-button color="primary" type="submit" class="submit-button">Submit</button>  
+      
     </div>
      </form>
   

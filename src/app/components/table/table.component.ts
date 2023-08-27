@@ -18,7 +18,7 @@ export class TableComponent {
   insurances:Insurance[] = []
   totalElements :number = 0;
   currentPage = '0';
-  currentSize = '5';
+  currentSize = '10';
   currentSortColumn = "id"
   currentSortDirection = "asc"
   displayedColumns = [
@@ -50,7 +50,7 @@ export class TableComponent {
 
   async getInsurances() {
     try {
-      [this.insurances,this.totalElements] = await this.insuranceService.getAll();
+      [this.insurances,this.totalElements] = await this.insuranceService.getAll(this.currentPage,this.currentSize);
       this.dataSource = new MatTableDataSource(this.insurances);
 
       
