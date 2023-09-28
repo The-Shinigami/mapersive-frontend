@@ -1,9 +1,11 @@
 import { Component, ViewChild,Input,OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { InsuranceService } from 'src/app/services/insurance.service';
+import { InsuranceService } from 'src/app/services/insurance/insurance.service';
 import Insurance from '../model/insurance';
 import ResponseHandler from '../model/response';
 import { MatSnackBarConfig,MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { NgToastService } from 'ng-angular-popup';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 
 @Component({
   selector: 'app-insurance-form',
@@ -24,13 +26,15 @@ export class InsuranceFormComponent implements OnInit{
 
   customPrimaryColor = ''
 
-  constructor(private fb: FormBuilder,private insuranceService:InsuranceService,private _snackBar: MatSnackBar) {
+  constructor(private fb: FormBuilder,private insuranceService:InsuranceService,private _snackBar: MatSnackBar,private ngToastService:NgToastService,private notificationService: NotificationService) {
     this.insuranceForm = this.fb.group({
       insuranceId: [null],
       policyId: [null, Validators.required],
-      dateOfPurchase: [null, Validators.required],
+      // dateOfPurchase: [null, Validators.required],
+      dateOfPurchase: [null],
       customerId: [null, Validators.required],
-      fuel: [null, Validators.required],
+      // fuel: [null, Validators.required],
+      fuel: [null],
       vehicleSegment: [null, Validators.required],
       premium: [null, Validators.required],
       bodilyInjuryLiability: [null, Validators.required],
@@ -62,23 +66,45 @@ export class InsuranceFormComponent implements OnInit{
 
      
       if(this.insuranceToUpdate != undefined){
-      res =  await this.insuranceService.saveUpdate(this.insuranceForm.value) 
+      this.insuranceService.saveUpdate(this.insuranceForm.value).subscribe(
+        (data) => {
+             res = data;
+             if(res.status == "OK"){
+              this.notificationService.showSuccess(res);
+      
+              this.myForm.resetForm();
+            }else{
+                this.notificationService.showError(res);      
+            }
+        }
+        ,
+      (errorResponse) => {
+        this.notificationService.showError(errorResponse);     
+      }
+      ); 
         this.closeUpdateDialog.emit();
       }else{
-      res =  await this.insuranceService.saveInsert(this.insuranceForm.value) 
-       
+      this.insuranceService.saveInsert(this.insuranceForm.value).subscribe(
+        (data) => {
+             res = data;
+             if(res.status == "OK"){
+              this.notificationService.showSuccess(res);
+      
+              this.myForm.resetForm();
+            }else{
+                this.notificationService.showError(res);      
+            }
+        }
+        ,
+      (errorResponse) => {
+        this.notificationService.showError(errorResponse);     
+      }
+      )      
       }
 
-
-      let config = new MatSnackBarConfig();
-      config.duration = 1500;
-      config.horizontalPosition = this.horizontalPosition;
-      config.verticalPosition = this.verticalPosition;
-
-      this._snackBar.open(res.payload, 'Close',config);
+     
 
      
-      this.myForm.resetForm();
     }
     
   }
@@ -91,4 +117,16 @@ export class InsuranceFormComponent implements OnInit{
     }
     
   }
+
+  
+
 }
+
+
+// let config = new MatSnackBarConfig();
+// config.duration = 1500;
+// config.horizontalPosition = this.horizontalPosition;
+// config.verticalPosition = this.verticalPosition;
+// config.panelClass = "alert-success";
+
+// this._snackBar.open(res.payload, 'Close',config);

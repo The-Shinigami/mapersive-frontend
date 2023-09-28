@@ -19,6 +19,10 @@ import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { ValueToIconPipe } from './shared/pipe/value-to-icon.pipe';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NgToastModule } from 'ng-angular-popup'
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +45,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatTooltipModule,
     MatCardModule,
     MatGridListModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgToastModule,
+    SimpleNotificationsModule.forRoot(),
+    HttpClientModule,
 
   ],
   providers: [],

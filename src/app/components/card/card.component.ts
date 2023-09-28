@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
-import { InsuranceService } from 'src/app/services/insurance.service';
+import { InsuranceService } from 'src/app/services/insurance/insurance.service';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 import { DeleteConfirmationComponent } from 'src/app/shared/dialog/delete-confirmation/delete-confirmation.component';
 import { UpdateComponent } from 'src/app/shared/dialog/update/update.component';
 import Insurance from 'src/app/shared/model/insurance';
@@ -26,25 +27,20 @@ export class CardComponent {
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
 
-  constructor(private insuranceService:InsuranceService,public dialog: MatDialog,private _snackBar: MatSnackBar){}
+  constructor(private insuranceService:InsuranceService,public dialog: MatDialog,private _snackBar: MatSnackBar,private notificationService:NotificationService){}
 
 
   ngOnInit(): void {
     this.getInsurances();
   }
 
-  async getInsurances() {
-    try {
-      [this.insurances,this.totalElements] = await this.insuranceService.getAll(this.currentPage,this.currentSize);
-
-
-      
-    } catch (error) {
-      console.error("Error fetching insurances:", error);
-      // Handle the error here
-    }
+  getInsurances() {
+ 
+      this.insuranceService.getAll(this.currentPage,this.currentSize).subscribe(([insurances, totalElements]) => {
+        [this.insurances,this.totalElements] = [insurances, totalElements]; 
+      });   
 }
-async nextPage(event: PageEvent) {
+ nextPage(event: PageEvent) {
 
   this.currentPage = event.pageIndex.toString();
   this.currentSize = event.pageSize.toString();
@@ -54,20 +50,21 @@ async nextPage(event: PageEvent) {
     direction: this.currentSortDirection
   };
 
-
-  [this.insurances,this.totalElements] = await this.insuranceService.getAll(this.currentPage,this.currentSize, sort);
+  this.insuranceService.getAll(this.currentPage,this.currentSize, sort).subscribe(([insurances, totalElements]) => {
+    [this.insurances,this.totalElements] = [insurances, totalElements]; 
+  });
   
 }
-showMore: { [key: number]: boolean } = {}; // Object to track expanded states
+showMore: { [key: number]: boolean } = {}; 
 
   toggleShowMore(insuranceId: number): void {
     this.showMore[insuranceId] = !this.showMore[insuranceId];
   }
   
-  async delete(row:Insurance){
+   delete(row:Insurance){
     this.openDeleteDialog(row);
   }
-  async edit(row:Insurance){
+   edit(row:Insurance){
     this.openUpdateDialog(row);
   }
   
@@ -76,22 +73,28 @@ showMore: { [key: number]: boolean } = {}; // Object to track expanded states
   
       dialogRef.afterClosed().subscribe(async result => {
         if(result){
-        const res : ResponseHandler = await this.insuranceService.remove(row);
-        if(res.status == "OK"){
-          let config = new MatSnackBarConfig();
-          config.duration = 1500;
-          config.horizontalPosition = this.horizontalPosition;
-          config.verticalPosition = this.verticalPosition;
-    
-          this._snackBar.open(res.payload, 'Close',config);
-          const sort = {
-            column: this.currentSortColumn,
-            direction: this.currentSortDirection
-          };
+        this.insuranceService.remove(row).subscribe(
+          (res) =>{
+            if(res.status == "OK"){
+              this.notificationService.showSuccess(res);
         
-          [this.insurances,this.totalElements] = await this.insuranceService.getAll(this.currentPage,this.currentSize,sort);
-         
-        }
+              const sort = {
+                column: this.currentSortColumn,
+                direction: this.currentSortDirection
+              };
+            
+              this.insuranceService.getAll(this.currentPage,this.currentSize,sort).subscribe(([insurances, totalElements]) => {
+                [this.insurances,this.totalElements] = [insurances, totalElements]; 
+              });
+             
+            }
+
+          },
+          (errorResponse) => {
+            this.notificationService.showError(errorResponse);     
+          }
+        )
+        
         }
       });
     }
@@ -103,13 +106,13 @@ showMore: { [key: number]: boolean } = {}; // Object to track expanded states
   
       dialogRef.afterClosed().subscribe(async result => {
         if(result){
-          console.log(result)
           const sort = {
             column: this.currentSortColumn,
             direction: this.currentSortDirection
           };
-          [this.insurances,this.totalElements] = await this.insuranceService.getAll(this.currentPage,this.currentSize,sort);
-     
+          this.insuranceService.getAll(this.currentPage,this.currentSize,sort).subscribe(([insurances, totalElements]) => {
+            [this.insurances,this.totalElements] = [insurances, totalElements]; 
+          });     
         }
       });
     }

@@ -2,20 +2,21 @@
     min-width: 100px;
 }
 
-::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__surface {
-   
-    background-color: rgb(180, 235, 188)!important;
 
-  }
 
     
-  ::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__label {
-   
-    color: black!important;
+::ng-deep .alert-fail > * { 
+  color: black!important;
+  background-color: rgb(241, 193, 193)!important;
 
-  }
-  ::ng-deep .mat-mdc-snack-bar-container .mat-mdc-button.mat-mdc-snack-bar-action:not(:disabled) {
-   
-    color: black!important;
+}
 
-  }
+::ng-deep .alert-success > *{ 
+  color: black!important;
+  background-color: rgb(201, 241, 193)!important;
+
+}
+
+::ng-deep .sn-title{
+  font-size: medium!important;
+ }

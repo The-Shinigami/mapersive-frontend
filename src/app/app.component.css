@@ -1,19 +1,14 @@
+
 .container{
-    overflow: auto; 
+    overflow: auto!important;
     height: 100%;
 }
+
+
 @media (max-width: 600px) {
    a{
     font-size: 13px;
    }
 
   }
-  ::ng-deep .alert-fail{ 
-    background-color: rgb(241, 193, 193)!important;
- 
-  }
   
-  ::ng-deep .alert-success{ 
-    background-color: rgb(201, 241, 193)!important;
- 
-  }

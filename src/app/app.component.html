@@ -16,9 +16,12 @@
           </a>
         </nav>
     </mat-grid-tile>
+
     <mat-grid-tile 
     [colspan]="1"
-    [rowspan]="7">
+    [rowspan]="7"
+    class="content"
+    >
       <div class="container">
         <mat-tab-nav-panel #tabPanel >
             <router-outlet></router-outlet>
@@ -56,4 +59,5 @@
     </mat-grid-tile>
   </mat-grid-list>
 
-  
+  <ng-toast></ng-toast>
+  <simple-notifications></simple-notifications>

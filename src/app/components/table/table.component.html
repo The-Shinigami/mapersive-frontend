@@ -105,11 +105,12 @@
 
     <ng-container matColumnDef="delete" class="tw-max-w-fit">
       <mat-header-cell *matHeaderCellDef mat-sort-header > Delete </mat-header-cell>
-      <mat-cell *matCellDef="let row" > 
-        <button mat-icon-button matTooltip="Click to Delete" class="iconbutton" 
-          (click)="delete(row)" color="warn">
+      <mat-cell *matCellDef="let row"   > 
+        <button mat-icon-button matTooltip="Click to Delete" 
+          (click)="delete(row)" color="warn" >
           <mat-icon class="icon-delete-color">delete</mat-icon>
-        </button> </mat-cell>
+        </button> 
+      </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

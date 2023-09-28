@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { InsuranceService } from 'src/app/services/insurance.service';
+import { InsuranceService } from 'src/app/services/insurance/insurance.service';
 import Insurance from 'src/app/shared/model/insurance';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
@@ -10,6 +10,7 @@ import { DeleteConfirmationComponent } from 'src/app/shared/dialog/delete-confir
 import { UpdateComponent } from 'src/app/shared/dialog/update/update.component';
 import ResponseHandler from 'src/app/shared/model/response';
 import { MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -46,7 +47,7 @@ export class TableComponent {
   horizontalPosition: MatSnackBarHorizontalPosition = 'start';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
-  constructor(private insuranceService:InsuranceService,public dialog: MatDialog,private _snackBar: MatSnackBar){}
+  constructor(private insuranceService:InsuranceService,public dialog: MatDialog,private _snackBar: MatSnackBar,private notificationService:NotificationService){}
 
   ngOnInit(): void {
     this.getInsurances();
@@ -54,8 +55,12 @@ export class TableComponent {
 
   async getInsurances() {
     try {
-      [this.insurances,this.totalElements] = await this.insuranceService.getAll(this.currentPage,this.currentSize);
-      this.dataSource = new MatTableDataSource(this.insurances);
+      this.insuranceService.getAll(this.currentPage,this.currentSize).subscribe(([insurances, totalElements]) => {
+        
+        [this.insurances,this.totalElements] = [insurances, totalElements]; 
+        this.dataSource = new MatTableDataSource(this.insurances);
+
+      });
 
       
     } catch (error) {
@@ -74,8 +79,11 @@ async nextPage(event: PageEvent) {
   };
 
 
-  [this.insurances,this.totalElements] = await this.insuranceService.getAll(this.currentPage,this.currentSize, sort);
-  this.dataSource = new MatTableDataSource(this.insurances);
+  this.insuranceService.getAll(this.currentPage,this.currentSize,sort).subscribe(([insurances, totalElements]) => {
+    [this.insurances,this.totalElements] = [insurances, totalElements]; 
+    this.dataSource = new MatTableDataSource(this.insurances);
+  });  
+  
   
 }
 async sortData(event:Sort){
@@ -87,8 +95,10 @@ async sortData(event:Sort){
     direction: this.currentSortDirection
   };
 
-  [this.insurances,this.totalElements] = await this.insuranceService.getAll(this.currentPage,this.currentSize,sort);
-  this.dataSource = new MatTableDataSource(this.insurances);
+  this.insuranceService.getAll(this.currentPage,this.currentSize,sort).subscribe(([insurances, totalElements]) => {
+    [this.insurances,this.totalElements] = [insurances, totalElements]; 
+    this.dataSource = new MatTableDataSource(this.insurances);
+  });  
 }
 
 async delete(row:Insurance){
@@ -102,23 +112,25 @@ async edit(row:Insurance){
     const dialogRef = this.dialog.open(DeleteConfirmationComponent);
     dialogRef.afterClosed().subscribe(async result => {
       if(result){
-      const res : ResponseHandler= await this.insuranceService.remove(row);
-      if(res.status == "OK"){
-        let config = new MatSnackBarConfig();
-        config.duration = 1500;
-        config.horizontalPosition = this.horizontalPosition;
-        config.verticalPosition = this.verticalPosition;
-  
-        this._snackBar.open(res.payload, 'Close',config);
-
-        const sort = {
-          column: this.currentSortColumn,
-          direction: this.currentSortDirection
-        };
+      this.insuranceService.remove(row).subscribe((res)=>{
+        if(res.status == "OK"){
+          this.notificationService.showSuccess(res)
+   
+           const sort = {
+             column: this.currentSortColumn,
+             direction: this.currentSortDirection
+           };
+         
+           this.insuranceService.getAll(this.currentPage,this.currentSize,sort).subscribe(([insurances, totalElements]) => {
+             [this.insurances,this.totalElements] = [insurances, totalElements]; 
+             this.dataSource = new MatTableDataSource(this.insurances);
+           });        
+         }
+      },
+      (errorResponse) => {
+        this.notificationService.showError(errorResponse);     
+      })
       
-        [this.insurances,this.totalElements] = await this.insuranceService.getAll(this.currentPage,this.currentSize,sort);
-        this.dataSource = new MatTableDataSource(this.insurances);
-      }
       }
     });
   }
@@ -134,12 +146,15 @@ async edit(row:Insurance){
           column: this.currentSortColumn,
           direction: this.currentSortDirection
         };
-        [this.insurances,this.totalElements] = await this.insuranceService.getAll(this.currentPage,this.currentSize,sort);
-        this.dataSource = new MatTableDataSource(this.insurances);    
+        this.insuranceService.getAll(this.currentPage,this.currentSize,sort).subscribe(([insurances, totalElements]) => {
+          [this.insurances,this.totalElements] = [insurances, totalElements]; 
+          this.dataSource = new MatTableDataSource(this.insurances); 
+        });        
+           
       }
     });
   }
-  
-  
+
+ 
 
 }

@@ -1,4 +1,4 @@
-<div class="card-container tw-container">
+<div class="card-container ">
     <mat-card class="card tw-absolute tw-p-5" *ngFor="let insurance of insurances">
         <mat-card-header>
           <mat-card-title>Policy ID: {{ insurance.policyId }}</mat-card-title>
@@ -6,11 +6,11 @@
         </mat-card-header>
         <hr class="tw-my-2">
         <mat-card-content  >
-            <div class="content-toggle">
+            <div class="content-toggle tw-relative">
                 <p><strong>Fuel:</strong> {{ insurance.fuel }}</p>
                 <p><strong>Vehicle Segment:</strong> {{ insurance.vehicleSegment }}</p>
                 <p><strong>Premium:</strong> {{ insurance.premium }}</p>
-                <div *ngIf="showMore[insurance.insuranceId]" class="tw-absolute tw-bg-white tw-p-3 tw-left-64 tw-w-72 tw-z-10 tw-border-4">
+              <div *ngIf="showMore[insurance.insuranceId]" class="tw-absolute tw-bg-white tw-p-3 tw-left-64 tw-w-72 tw-z-10 tw-border-4" >
                 <p><strong>Bodily Injury Liability:</strong><mat-icon>  {{ insurance.bodilyInjuryLiability | valueToIcon }}</mat-icon></p>
                 <p><strong>Personal Injury Protection:</strong><mat-icon>  {{ insurance.personalInjuryProtection | valueToIcon }} </mat-icon></p>
                 <p><strong>Property Damage Liability:</strong><mat-icon>  {{ insurance.propertyDamageLiability  | valueToIcon}} </mat-icon></p>
@@ -20,7 +20,7 @@
                 <p><strong>Customer Income Group:</strong> {{ insurance.customerIncomeGroup }}</p>
                 <p><strong>Customer Region:</strong> {{ insurance.customerRegion }}</p>
                 <p><strong>Customer Marital Status:</strong><mat-icon>  {{ insurance.customerMaritalStatus | valueToIcon }} </mat-icon></p>
-                </div>           
+              </div>           
             </div>   
 
         </mat-card-content>
